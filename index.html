@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-32YGB007DL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-32YGB007DL');
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>住宅ローン × 投資 比較シミュレーター</title>
@@ -787,6 +795,14 @@
       font-weight: 600;
       color: #2b6cb0;
       line-height: 1.45;
+      margin-bottom: 4px;
+    }
+
+    .related-tool-desc {
+      display: block;
+      font-size: 0.8rem;
+      color: #718096;
+      line-height: 1.55;
     }
   </style>
 </head>
@@ -1652,22 +1668,26 @@
         id: "mortgage-invest",
         name: "住宅ローン × 投資比較シミュレーター",
         url: "https://mortgage-invest-simulator.vercel.app/",
-        popular: true
+        popular: true,
+        desc: "繰上返済と投資のどちらが有利か比較できます。"
       },
       {
         id: "asset",
         name: "資産推移シミュレーター",
-        url: "https://asset-simulator-five.vercel.app/"
+        url: "https://asset-simulator-five.vercel.app/",
+        desc: "毎月の積立や運用による資産形成を試算できます。"
       },
       {
         id: "education",
         name: "教育費シミュレーター",
-        url: "https://education-fund-simulator.vercel.app/"
+        url: "https://education-fund-simulator.vercel.app/",
+        desc: "お子さまの進路に合わせた教育資金を試算できます。"
       },
       {
         id: "car",
         name: "車買い替え比較シミュレーター",
-        url: "https://car-cost-simulator-jet.vercel.app/"
+        url: "https://car-cost-simulator-jet.vercel.app/",
+        desc: "現在の車を維持する場合と買い替える場合の費用を比較できます。"
       }
     ];
 
@@ -1694,7 +1714,8 @@
         html.push(
           '<a class="related-tool-card" href="' + tool.url + '" target="_blank" rel="noopener noreferrer">' +
           (tool.popular ? '<span class="related-tool-badge">🏆 人気No.1</span>' : "") +
-          '<span class="related-tool-name">' + tool.name + "</span></a>"
+          '<span class="related-tool-name">' + tool.name + "</span>" +
+          '<span class="related-tool-desc">' + tool.desc + "</span></a>"
         );
       }
 
