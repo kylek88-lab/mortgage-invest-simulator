@@ -725,6 +725,69 @@
       font-size: 0.72rem;
       color: #b8c2cc;
     }
+
+    /* 関連ツールカード */
+    .related-tools {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      border: 1px solid #e8edf3;
+    }
+
+    .related-tools-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #2d3748;
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    .related-tools-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    @media (min-width: 560px) {
+      .related-tools-list {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .related-tool-card {
+      display: block;
+      padding: 14px 16px;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      background: #f7fafc;
+      text-decoration: none;
+      transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+    }
+
+    .related-tool-card:hover {
+      border-color: #90cdf4;
+      background: #ebf8ff;
+      box-shadow: 0 2px 6px rgba(49, 130, 206, 0.12);
+    }
+
+    .related-tool-badge {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #b7791f;
+      margin-bottom: 6px;
+    }
+
+    .related-tool-name {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #2b6cb0;
+      line-height: 1.45;
+    }
   </style>
 </head>
 <body>
@@ -955,6 +1018,12 @@
     </section>
 
     </main>
+
+    <!-- 関連ツール（管理人のひとことの下に配置） -->
+    <section class="related-tools" id="relatedTools">
+      <h2 class="related-tools-title">関連ツール</h2>
+      <div class="related-tools-list" id="relatedToolsList"></div>
+    </section>
 
     <footer>
       <p>※本シミュレーターは一定の条件に基づく参考試算です。実際の返済額や運用成果を保証するものではありません。ご利用にあたっては、ご自身で内容をご確認のうえご判断ください。</p>
@@ -1573,6 +1642,66 @@
     document.getElementById("prepay").value = formatInputComma(parseInputNumber(document.getElementById("prepay").value));
 
     calculate();
+
+    /*
+     * 関連ツール一覧
+     * 現在表示中のツール（getCurrentToolId）以外をカード表示する
+     */
+    var ALL_TOOLS = [
+      {
+        id: "mortgage-invest",
+        name: "住宅ローン × 投資比較シミュレーター",
+        url: "https://mortgage-invest-simulator.vercel.app/",
+        popular: true
+      },
+      {
+        id: "asset",
+        name: "資産推移シミュレーター",
+        url: "https://asset-simulator-five.vercel.app/"
+      },
+      {
+        id: "education",
+        name: "教育費シミュレーター",
+        url: "https://education-fund-simulator.vercel.app/"
+      },
+      {
+        id: "car",
+        name: "車買い替え比較シミュレーター",
+        url: "https://car-cost-simulator-jet.vercel.app/"
+      }
+    ];
+
+    /** URLから現在のツールIDを判定（ローカル表示時は住宅ローン） */
+    function getCurrentToolId() {
+      var host = location.hostname;
+      if (host.indexOf("mortgage-invest") >= 0) return "mortgage-invest";
+      if (host.indexOf("asset-simulator") >= 0) return "asset";
+      if (host.indexOf("education-fund") >= 0) return "education";
+      if (host.indexOf("car-cost") >= 0) return "car";
+      return "mortgage-invest";
+    }
+
+    /** 関連ツールカードを描画（現在のツールは除外） */
+    function renderRelatedTools() {
+      var currentId = getCurrentToolId();
+      var list = document.getElementById("relatedToolsList");
+      var html = [];
+
+      for (var i = 0; i < ALL_TOOLS.length; i++) {
+        var tool = ALL_TOOLS[i];
+        if (tool.id === currentId) continue;
+
+        html.push(
+          '<a class="related-tool-card" href="' + tool.url + '" target="_blank" rel="noopener noreferrer">' +
+          (tool.popular ? '<span class="related-tool-badge">🏆 人気No.1</span>' : "") +
+          '<span class="related-tool-name">' + tool.name + "</span></a>"
+        );
+      }
+
+      list.innerHTML = html.join("");
+    }
+
+    renderRelatedTools();
   </script>
 </body>
 </html>
