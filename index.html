@@ -1696,6 +1696,12 @@
         name: "車買い替え比較シミュレーター",
         url: "https://car-cost-simulator-jet.vercel.app/",
         desc: "現在の車を維持する場合と買い替える場合の費用を比較できます。"
+      },
+      {
+        id: "retirement-withdrawal",
+        name: "老後資産取り崩しシミュレーター",
+        url: "https://retirement-withdrawal-simulator.vercel.app/",
+        desc: "年金と資産を取り崩した場合、何歳まで資産が持つか試算できます。"
       }
     ];
 
@@ -1706,6 +1712,7 @@
       if (host.indexOf("asset-simulator") >= 0) return "asset";
       if (host.indexOf("education-fund") >= 0) return "education";
       if (host.indexOf("car-cost") >= 0) return "car";
+      if (host.indexOf("retirement-withdrawal") >= 0) return "retirement-withdrawal";
       return "mortgage-invest";
     }
 
