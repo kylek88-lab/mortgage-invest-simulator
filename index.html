@@ -736,6 +736,104 @@
       margin: 0;
     }
 
+    /* 用語説明・結果ガイド（全シミュレーター共通） */
+    .label-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .label-row label {
+      margin-bottom: 0;
+    }
+
+    .term-help-btn {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 1px solid #cbd5e0;
+      background: #edf2f7;
+      color: #4a5568;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      flex-shrink: 0;
+      line-height: 1;
+      padding: 0;
+      font-family: inherit;
+    }
+
+    .term-help-btn:hover,
+    .term-help-btn:focus-visible {
+      background: #dbeafe;
+      border-color: #90cdf4;
+      outline: none;
+    }
+
+    .term-help-panel {
+      display: none;
+      margin: 0 0 10px;
+      padding: 10px 12px;
+      background: #f7fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      color: #4a5568;
+      line-height: 1.65;
+    }
+
+    .term-help-panel.open {
+      display: block;
+    }
+
+    .result-guide {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+      background: #f7fafc;
+    }
+
+    .result-guide-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #4a5568;
+      margin-bottom: 8px;
+    }
+
+    .result-guide-body {
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: #2d3748;
+    }
+
+    .result-guide-detail {
+      display: block;
+      margin-top: 6px;
+      font-size: 0.8rem;
+      color: #718096;
+    }
+
+    .result-guide--good {
+      border-left: 4px solid #38a169;
+      background: #f0fff4;
+    }
+
+    .result-guide--warn {
+      border-left: 4px solid #d69e2e;
+      background: #fffff0;
+    }
+
+    .result-guide--bad {
+      border-left: 4px solid #e53e3e;
+      background: #fff5f5;
+    }
+
+    .result-guide--neutral {
+      border-left: 4px solid #cbd5e0;
+    }
+
     footer .footer-sub {
       margin-top: 8px;
       font-size: 0.72rem;
@@ -853,7 +951,11 @@
       <div id="error" class="error"></div>
 
       <div class="field">
-        <label for="balance">ローン残高</label>
+        <div class="label-row">
+          <label for="balance">ローン残高</label>
+          <button type="button" class="term-help-btn" data-term-help="balance" aria-expanded="false" aria-label="ローン残高の説明">?</button>
+        </div>
+        <div class="term-help-panel" id="termHelp-balance"></div>
         <div class="input-wrap">
           <input type="text" inputmode="numeric" id="balance" value="30000000" autocomplete="off" />
           <span class="unit">円</span>
@@ -861,7 +963,11 @@
       </div>
 
       <div class="field">
-        <label for="rate">金利（年利）</label>
+        <div class="label-row">
+          <label for="rate">金利（年利）</label>
+          <button type="button" class="term-help-btn" data-term-help="rate" aria-expanded="false" aria-label="金利の説明">?</button>
+        </div>
+        <div class="term-help-panel" id="termHelp-rate"></div>
         <div class="input-wrap">
           <input type="number" id="rate" value="1.5" min="0" step="0.01" />
           <span class="unit">%</span>
@@ -869,7 +975,11 @@
       </div>
 
       <div class="field">
-        <label for="years">残年数</label>
+        <div class="label-row">
+          <label for="years">残年数</label>
+          <button type="button" class="term-help-btn" data-term-help="years" aria-expanded="false" aria-label="残年数の説明">?</button>
+        </div>
+        <div class="term-help-panel" id="termHelp-years"></div>
         <div class="input-wrap">
           <input type="number" id="years" value="25" min="1" step="1" />
           <span class="unit">年</span>
@@ -877,7 +987,11 @@
       </div>
 
       <div class="field">
-        <label for="prepay">繰上返済額</label>
+        <div class="label-row">
+          <label for="prepay">繰上返済額</label>
+          <button type="button" class="term-help-btn" data-term-help="prepay" aria-expanded="false" aria-label="繰上返済額の説明">?</button>
+        </div>
+        <div class="term-help-panel" id="termHelp-prepay"></div>
         <div class="input-wrap">
           <input type="text" inputmode="numeric" id="prepay" value="1000000" autocomplete="off" />
           <span class="unit">円</span>
@@ -886,7 +1000,11 @@
       </div>
 
       <div class="field">
-        <label>繰上返済方式</label>
+        <div class="label-row">
+          <label>繰上返済方式</label>
+          <button type="button" class="term-help-btn" data-term-help="prepayType" aria-expanded="false" aria-label="繰上返済方式の説明">?</button>
+        </div>
+        <div class="term-help-panel" id="termHelp-prepayType"></div>
         <div class="radio-group">
           <label class="radio-option">
             <input type="radio" name="prepayType" value="termReduction" checked />
@@ -900,7 +1018,11 @@
       </div>
 
       <div class="field">
-        <label for="investRate">投資利回り（年利・期待値）</label>
+        <div class="label-row">
+          <label for="investRate">投資利回り（年利・期待値）</label>
+          <button type="button" class="term-help-btn" data-term-help="investRate" aria-expanded="false" aria-label="投資利回りの説明">?</button>
+        </div>
+        <div class="term-help-panel" id="termHelp-investRate"></div>
         <div class="input-wrap">
           <input type="number" id="investRate" value="5" min="0" step="0.1" />
           <span class="unit">%</span>
@@ -964,6 +1086,7 @@
       </div>
 
       <div class="chart-note" id="termNote"></div>
+      <div class="result-guide result-guide--neutral" id="resultGuideInterest"></div>
     </section>
 
     <!-- 金利感応度分析 -->
@@ -1014,6 +1137,7 @@
           <div class="result-sub" id="verdictText"></div>
         </div>
       </div>
+      <div class="result-guide result-guide--neutral" id="resultGuideInvest"></div>
     </section>
 
     <!-- 判断支援 -->
@@ -1056,6 +1180,108 @@
   </div>
 
   <script>
+    /** 用語説明・結果ガイド共通UI */
+    var SimulatorUI = (function () {
+      function initTermHelp(terms) {
+        Object.keys(terms).forEach(function (key) {
+          var panel = document.getElementById("termHelp-" + key);
+          if (panel) panel.textContent = terms[key];
+        });
+        document.querySelectorAll(".term-help-btn").forEach(function (btn) {
+          btn.addEventListener("click", function (e) {
+            e.preventDefault();
+            var key = btn.getAttribute("data-term-help");
+            var panel = document.getElementById("termHelp-" + key);
+            if (!panel) return;
+            var willOpen = !panel.classList.contains("open");
+            document.querySelectorAll(".term-help-panel").forEach(function (p) {
+              p.classList.remove("open");
+            });
+            document.querySelectorAll(".term-help-btn").forEach(function (b) {
+              b.setAttribute("aria-expanded", "false");
+            });
+            if (willOpen) {
+              panel.classList.add("open");
+              btn.setAttribute("aria-expanded", "true");
+            }
+          });
+        });
+      }
+      function renderResultGuide(id, level, message, detail) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        el.className = "result-guide result-guide--" + level;
+        el.innerHTML =
+          '<div class="result-guide-title">結果の見方</div>' +
+          '<div class="result-guide-body">' + message +
+          (detail ? '<span class="result-guide-detail">' + detail + "</span>" : "") +
+          "</div>";
+      }
+      function clearResultGuide(id) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        el.className = "result-guide result-guide--neutral";
+        el.innerHTML = "";
+      }
+      return { initTermHelp: initTermHelp, renderResultGuide: renderResultGuide, clearResultGuide: clearResultGuide };
+    })();
+
+    /** 入力項目の用語説明（初心者向け） */
+    var TERM_HELP = {
+      balance: "今の住宅ローンの借入残高です。これから返済していく元金の残りを入力します。",
+      rate: "借入金額に対して支払う利息の割合です。年利1.5%なら、100万円借りていると1年間で約1.5万円の利息がかかります。",
+      years: "ローンを完済するまでの残り年数です。この年数と金利で、毎月の返済額が決まります。",
+      prepay: "毎月の返済とは別に、まとめて前倒しで返済する金額です。支払う利息を減らす方法として使われます。",
+      prepayType: "期間短縮型は毎月の返済額を変えずに、返済期間を短くします。返済額軽減型は期間を変えずに、毎月の返済額を減らします。",
+      investRate: "運用によって毎年どれくらい増えるかを表す数字です。100万円を年5%で運用すると、1年後に約105万円になるイメージです。"
+    };
+
+    /** 結果の見方コメントを更新 */
+    function updateResultGuides(d) {
+      if (!d) return;
+      var ratio = d.totalInterestBefore > 0 ? d.interestSaved / d.totalInterestBefore : 0;
+
+      if (d.interestSaved >= 200000 || ratio >= 0.05) {
+        SimulatorUI.renderResultGuide(
+          "resultGuideInterest", "good",
+          "🟢 繰上返済の効果は比較的大きい結果と考えられます。",
+          "返済期間の短縮や利息削減のメリットが期待できる可能性があります。"
+        );
+      } else if (d.interestSaved >= 50000) {
+        SimulatorUI.renderResultGuide(
+          "resultGuideInterest", "warn",
+          "🟡 繰上返済による利息削減は一定の効果があると考えられます。",
+          "投資との比較結果もあわせて、ご自身の優先順位に合わせて検討してみてください。"
+        );
+      } else {
+        SimulatorUI.renderResultGuide(
+          "resultGuideInterest", "bad",
+          "🔴 今回の条件では繰上返済の効果は小さめかもしれません。",
+          "繰上返済額やタイミングを変えると、結果が変わる可能性があります。"
+        );
+      }
+
+      if (d.difference > 100000) {
+        SimulatorUI.renderResultGuide(
+          "resultGuideInvest", "good",
+          "🟢 同じ金額を投資に回した方が有利な結果と考えられます。",
+          "ただし投資の成果は将来変動する可能性があるため、リスク許容度も考慮してください。"
+        );
+      } else if (d.difference < -100000) {
+        SimulatorUI.renderResultGuide(
+          "resultGuideInvest", "good",
+          "🟢 繰上返済の方が有利な結果と考えられます。",
+          "確実に利息を減らせるメリットがある可能性があります。"
+        );
+      } else {
+        SimulatorUI.renderResultGuide(
+          "resultGuideInvest", "warn",
+          "🟡 投資と繰上返済の差は小さめです。",
+          "どちらを優先するかは、生活の安心感や将来の計画次第と考えられます。"
+        );
+      }
+    }
+
     function monthlyRate(annualPercent) {
       return annualPercent / 100 / 12;
     }
@@ -1547,6 +1773,7 @@
 
       renderSensitivity(d.balance, d.years, d.prepay, d.rate, d.prepayType);
       renderBreakEven(d.prepay, d.interestSaved, d.investMonths, d.investRate);
+      updateResultGuides(d);
     }
 
     function calculate() {
@@ -1642,6 +1869,9 @@
       document.getElementById("breakEvenVerdict").textContent = dash;
       document.getElementById("breakEvenVerdictCard").className = "judgment-card verdict-card";
       document.getElementById("breakEvenNote").textContent = "";
+
+      SimulatorUI.clearResultGuide("resultGuideInterest");
+      SimulatorUI.clearResultGuide("resultGuideInvest");
     }
 
     var inputs = document.querySelectorAll("input");
@@ -1665,6 +1895,7 @@
     document.getElementById("balance").value = formatInputComma(parseInputNumber(document.getElementById("balance").value));
     document.getElementById("prepay").value = formatInputComma(parseInputNumber(document.getElementById("prepay").value));
 
+    SimulatorUI.initTermHelp(TERM_HELP);
     calculate();
 
     /*
